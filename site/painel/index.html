@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Painel de reservas · Conceito Pet Store</title>
+<link rel="icon" href="/assets/img/favicon.png">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+  body{background:var(--butter)}
+  .pbar{background:var(--amber);border-bottom:var(--b) solid var(--ink)}
+  .pbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:12px}
+  .pbar img{width:110px;height:auto}
+  .pbar h1{font-size:24px}
+  .pbar .who{display:flex;align-items:center;gap:12px;font-weight:800;font-size:14px}
+  .pbar .btn{min-height:42px;padding:0 16px;font-size:15px}
+  .pmain{padding:28px 0 80px}
+  .grid{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+  .panel{background:#fff;border:var(--b) solid var(--ink);border-radius:22px;box-shadow:6px 6px 0 var(--ink);padding:22px;margin-bottom:24px}
+  .panel h2{font-size:26px;margin:0 0 14px}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .dayhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .dayhead input[type=date]{min-height:46px;border:var(--b) solid var(--ink);border-radius:14px;padding:0 12px;font-weight:800;background:#fffdf7}
+  .nav-btn{min-height:46px;min-width:46px;border:var(--b) solid var(--ink);border-radius:999px;background:#fff;font-weight:800;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+  .count{font-weight:800;color:var(--muted)}
+  .slot{border-top:2px dashed var(--line);padding:14px 0}
+  .slot:first-of-type{border-top:0}
+  .slot-h{display:flex;align-items:center;gap:10px;font:800 20px/1 var(--display);margin-bottom:10px}
+  .slot-h small{font:800 13px/1 var(--body);color:var(--muted)}
+  .slot-h .lock{font:800 12px/1 var(--body);background:var(--ink);color:#fff;padding:5px 9px;border-radius:999px}
+  .bk{border:var(--b) solid var(--ink);border-radius:16px;padding:14px;margin-bottom:10px;background:#fffdf7}
+  .bk.st-cancelado{opacity:.5}
+  .bk-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline}
+  .bk-top b{font-size:18px}
+  .pill{display:inline-block;font:800 12px/1 var(--body);padding:6px 10px;border-radius:999px;border:2px solid var(--ink)}
+  .st-pendente .pill{background:#FFE7A3}.st-confirmado .pill{background:#BFF0CF}.st-concluido .pill{background:#D9E6FF}.st-cancelado .pill{background:#F3D2D2}
+  .bk dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:10px 0 12px;font-size:15px}
+  .bk dt{font-weight:800}.bk dd{margin:0;color:var(--muted)}
+  .act{display:flex;flex-wrap:wrap;gap:8px}
+  .act button,.act a{min-height:40px;padding:0 14px;border:2px solid var(--ink);border-radius:999px;background:#fff;font:800 14px/1 var(--body);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
+  .act .ok{background:var(--wa)}.act .done{background:#D9E6FF}.act .no{background:#fff;color:var(--red)}
+  .act svg{width:16px;height:16px}
+  .empty{padding:20px 0;color:var(--muted);font-weight:800}
+  .field input,.field select{width:100%}
+  .small{font-size:14px;color:var(--muted)}
+  .blocks li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:2px dashed var(--line);font-size:15px}
+  .blocks button{border:0;background:none;color:var(--red);font-weight:800;cursor:pointer}
+  .login{max-width:440px;margin:8vh auto}
+  .login .panel{padding:30px}
+  .login img{width:150px;margin:0 auto 18px}
+  .msg{font-weight:800;margin-top:12px;min-height:1.3em}.msg.err{color:var(--red)}
+  .pend li{padding:8px 0;border-bottom:2px dashed var(--line);font-size:15px;cursor:pointer}
+  .pend li:hover b{text-decoration:underline}
+  @media (max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol></svg>
+
+<div id="setup" hidden class="wrap login">
+  <div class="panel"><h2>Falta ligar o banco</h2><p>Coloque a <b>Project URL</b> e a <b>anon key</b> do Supabase no arquivo <code>assets/js/config.js</code> e publique de novo. O passo a passo está no arquivo LEIA-ME.</p></div>
+</div>
+
+<div id="login" hidden class="wrap login">
+  <div class="panel">
+    <img src="/assets/logo.svg" alt="Conceito Pet Store">
+    <h2 style="text-align:center">Painel de reservas</h2>
+    <form id="login-form">
+      <div class="field" style="margin-bottom:12px"><label for="l-email">E-mail</label><input id="l-email" type="email" autocomplete="username" required></div>
+      <div class="field" style="margin-bottom:18px"><label for="l-pass">Senha</label><input id="l-pass" type="password" autocomplete="current-password" required></div>
+      <button class="btn btn--ink" style="width:100%">Entrar</button>
+      <p class="msg" id="login-msg" role="alert"></p>
+    </form>
+  </div>
+</div>
+
+<div id="app" hidden>
+  <header class="pbar"><div class="wrap">
+    <div class="row"><img src="/assets/logo-sticker.svg" alt="Conceito Pet Store"><h1>Reservas</h1></div>
+    <div class="who"><span id="who"></span><button class="btn" id="logout" type="button">Sair</button></div>
+  </div></header>
+  <main class="pmain"><div class="wrap grid">
+    <section>
+      <div class="panel">
+        <div class="dayhead">
+          <div class="row">
+            <button class="nav-btn" id="prev" type="button" aria-label="Dia anterior">‹</button>
+            <input type="date" id="day" aria-label="Dia">
+            <button class="nav-btn" id="next" type="button" aria-label="Próximo dia">›</button>
+            <button class="nav-btn" id="today" type="button" style="padding:0 14px">Hoje</button>
+          </div>
+          <span class="count" id="count"></span>
+        </div>
+        <div id="list"></div>
+      </div>
+    </section>
+    <aside>
+      <div class="panel">
+        <h2>Aguardando confirmação</h2>
+        <ul class="pend" id="pending" style="list-style:none;padding:0;margin:0"></ul>
+      </div>
+      <div class="panel">
+        <h2>Fechar horário</h2>
+        <form id="block-form">
+          <div class="field" style="margin-bottom:10px"><label for="b-day">Dia</label><input id="b-day" type="date" required></div>
+          <div class="field" style="margin-bottom:10px"><label for="b-slot">Horário</label><select id="b-slot" style="min-height:52px;border:var(--b) solid var(--ink);border-radius:18px;padding:0 14px;background:#fffdf7"></select></div>
+          <div class="field" style="margin-bottom:14px"><label for="b-reason">Motivo (opcional)</label><input id="b-reason" maxlength="80" placeholder="Feriado, folga..."></div>
+          <button class="btn btn--ink" style="width:100%">Fechar</button>
+        </form>
+        <ul class="blocks" id="blocks" style="list-style:none;padding:0;margin:16px 0 0"></ul>
+      </div>
+      <div class="panel">
+        <h2>Agenda da loja</h2>
+        <form id="settings-form">
+          <div class="field" style="margin-bottom:10px"><label for="s-slots">Horários (separe por vírgula)</label><input id="s-slots"></div>
+          <div class="field" style="margin-bottom:10px"><label for="s-cap">Pets por horário</label><input id="s-cap" type="number" min="1" max="20"></div>
+          <div class="field" style="margin-bottom:10px"><label>Dias fechados</label><div class="opts" id="s-closed"></div></div>
+          <div class="field" style="margin-bottom:14px"><label for="s-ahead">Aceitar reservas até quantos dias à frente</label><input id="s-ahead" type="number" min="1" max="90"></div>
+          <button class="btn" style="width:100%">Salvar agenda</button>
+          <p class="msg" id="settings-msg" role="status"></p>
+        </form>
+      </div>
+    </aside>
+  </div></main>
+</div>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/painel/painel.js"></script>
+</body>
+</html>

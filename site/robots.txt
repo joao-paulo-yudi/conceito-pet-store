@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /painel
+
+Sitemap: https://conceito-pet-store.vercel.app/sitemap.xml
